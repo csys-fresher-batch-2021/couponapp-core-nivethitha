@@ -1,13 +1,12 @@
 package in.nivethitha.service;
 
 import java.util.List;
-
 import in.nivethitha.dao.CouponDAO;
 import in.nivethitha.model.CouponDetails;
 
 public class DisplayCouponDetails {
 	private DisplayCouponDetails() {
-           //Default constructor
+		// Default constructor
 	}
 
 	/**
@@ -15,7 +14,7 @@ public class DisplayCouponDetails {
 	 */
 	public static List<CouponDetails> showDetails() {
 		CouponDAO couponDAO = new CouponDAO();
-		List<CouponDetails> siteCouponDetails = couponDAO.data();
+		List<CouponDetails> siteCouponDetails = CouponDAO.getCoupondetails();
 		for (CouponDetails couponDetails : siteCouponDetails) {
 
 			System.out.println(couponDetails);

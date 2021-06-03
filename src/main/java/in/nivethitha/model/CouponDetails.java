@@ -1,21 +1,25 @@
 package in.nivethitha.model;
 
+import java.util.Date;
+
 public class CouponDetails {
 	private int id;
 	private String shoppingSiteName;
 	private int discount;
 	private double purchaseAmount;
-	private String validity;
+	private Date startDate;
+	private Date expiryDate;
 	private String status;
 
-	public CouponDetails(int id, String shoppingSiteName, int discount, double purchaseAmount, String validity,
-			String status) {
+	public CouponDetails(int id, String shoppingSiteName, int discount, double purchaseAmount, Date startDate,
+			Date expiryDate, String status) {
 		super();
-		this.id=id;
+		this.id = id;
 		this.shoppingSiteName = shoppingSiteName;
 		this.discount = discount;
 		this.purchaseAmount = purchaseAmount;
-		this.validity = validity;
+		this.startDate = startDate;
+		this.expiryDate = expiryDate;
 		this.status = status;
 	}
 
@@ -51,14 +55,6 @@ public class CouponDetails {
 		this.purchaseAmount = purchaseAmount;
 	}
 
-	public String getValidity() {
-		return validity;
-	}
-
-	public void setValidity(String validity) {
-		this.validity = validity;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -70,7 +66,8 @@ public class CouponDetails {
 	@Override
 	public String toString() {
 		return "CouponDetails [id=" + id + ", shoppingSiteName=" + shoppingSiteName + ", discount=" + discount
-				+ ", purchaseAmount=" + purchaseAmount + ", validity=" + validity + ", status=" + status + "]";
+				+ ", purchaseAmount=" + purchaseAmount + ", startDate=" + startDate + ", expiryDate=" + expiryDate
+				+ ", status=" + status + "]";
 	}
 
 }
