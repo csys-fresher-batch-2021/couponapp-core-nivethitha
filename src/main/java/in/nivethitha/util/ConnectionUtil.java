@@ -9,7 +9,7 @@ import in.nivethitha.exception.ConnectionException;
 
 public class ConnectionUtil {
 	private ConnectionUtil() {
-
+    //Default constructor
 	}
 
 	private static final String driverClass = System.getenv("spring.datasource.driver-class-name");
@@ -33,6 +33,7 @@ public class ConnectionUtil {
 	/**
 	 * This method is used to close the connection of Resultset connection and
 	 * prepared statement Method overloading
+	 * 
 	 * @param con
 	 */
 	public static void close(ResultSet rs, PreparedStatement ps, Connection con) {
@@ -53,5 +54,4 @@ public class ConnectionUtil {
 		}
 	}
 
-	
 }

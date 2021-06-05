@@ -4,7 +4,7 @@ discount int not null,
 purchasing_amount int not null,
 start_date date not null,
 expiry_date date not null, 
-status varchar(10));
+status varchar(10),CHECK( status in ('OPEN','CLOSED')));
 insert into coupondetails(shopping_site,discount,purchasing_amount,start_date,expiry_date,status)
-values('myntra','15','1500','2021-05-01','2021-01-05','closed');
+values('flipkart','25','4500','2021-06-12','2021-06-20','OPEN');
 select*from coupondetails;

@@ -2,7 +2,7 @@ package in.nivethitha.service;
 
 import java.util.List;
 import in.nivethitha.dao.CouponDAO;
-import in.nivethitha.model.CouponDetails;
+import in.nivethitha.model.CouponDetail;
 
 public class DisplayCouponDetails {
 	private DisplayCouponDetails() {
@@ -12,10 +12,10 @@ public class DisplayCouponDetails {
 	/**
 	 * This method is for displaying coupon details
 	 */
-	public static List<CouponDetails> showDetails() {
+	public static List<CouponDetail> showDetails() {
 		CouponDAO couponDAO = new CouponDAO();
-		List<CouponDetails> siteCouponDetails = CouponDAO.getCoupondetails();
-		for (CouponDetails couponDetails : siteCouponDetails) {
+		List<CouponDetail> siteCouponDetails = CouponDAO.getCoupondetails();
+		for (CouponDetail couponDetails : siteCouponDetails) {
 
 			System.out.println(couponDetails);
 

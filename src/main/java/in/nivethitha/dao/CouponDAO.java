@@ -3,16 +3,17 @@ package in.nivethitha.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import in.nivethitha.model.CouponDetails;
+import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.ConnectionUtil;
 
 public class CouponDAO {
 
-	public static List<CouponDetails> getCoupondetails() {
-		List<CouponDetails> siteCouponDetails = new ArrayList<>();
+	public static List<CouponDetail> getCoupondetails() {
+		List<CouponDetail> siteCouponDetails = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -24,14 +25,16 @@ public class CouponDAO {
 			while (rs.next()) {
 
 				int id = rs.getInt("id");
-				String shoppingSite = rs.getString("shopping_site");
+				String shoppingSiteName = rs.getString("shopping_site");
 				int discount = rs.getInt("discount");
 				double purchasingAmount = rs.getDouble("purchasing_amount");
-				Date startDate = rs.getDate("start_date");
-				Date expiryDate = rs.getDate("expiry_date");
+				Date openDate = rs.getDate("start_date");
+				LocalDate startDate = ((java.sql.Date) openDate).toLocalDate();
+				Date closeDate = rs.getDate("expiry_date");
+				LocalDate expiryDate = ((java.sql.Date) closeDate).toLocalDate();
 				String status = rs.getString("Status");
 				// Store the data in model
-				CouponDetails coupon = new CouponDetails(id, shoppingSite, discount, purchasingAmount, startDate,
+				CouponDetail coupon = new CouponDetail(id, shoppingSiteName, discount, purchasingAmount, startDate,
 						expiryDate, status);
 				// Store all user site coupon details in list
 				siteCouponDetails.add(coupon);

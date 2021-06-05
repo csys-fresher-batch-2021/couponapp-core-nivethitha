@@ -1,18 +1,19 @@
 package in.nivethitha.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public class CouponDetails {
+public class CouponDetail {
+
 	private int id;
 	private String shoppingSiteName;
 	private int discount;
 	private double purchaseAmount;
-	private Date startDate;
-	private Date expiryDate;
+	private LocalDate startDate;
+	private LocalDate expiryDate;
 	private String status;
 
-	public CouponDetails(int id, String shoppingSiteName, int discount, double purchaseAmount, Date startDate,
-			Date expiryDate, String status) {
+	public CouponDetail(int id, String shoppingSiteName, int discount, double purchaseAmount, LocalDate startDate,
+			LocalDate expiryDate, String status) {
 		super();
 		this.id = id;
 		this.shoppingSiteName = shoppingSiteName;
@@ -55,6 +56,22 @@ public class CouponDetails {
 		this.purchaseAmount = purchaseAmount;
 	}
 
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDate getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(LocalDate expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -65,9 +82,8 @@ public class CouponDetails {
 
 	@Override
 	public String toString() {
-		return "CouponDetails [id=" + id + ", shoppingSiteName=" + shoppingSiteName + ", discount=" + discount
+		return "CouponDetail [id=" + id + ", shoppingSiteName=" + shoppingSiteName + ", discount=" + discount
 				+ ", purchaseAmount=" + purchaseAmount + ", startDate=" + startDate + ", expiryDate=" + expiryDate
 				+ ", status=" + status + "]";
 	}
-
 }
