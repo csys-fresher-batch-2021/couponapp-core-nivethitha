@@ -13,7 +13,6 @@ public class DisplayCouponDetails {
 	 * This method is for displaying coupon details
 	 */
 	public static List<CouponDetail> showDetails() {
-		CouponDAO couponDAO = new CouponDAO();
 		List<CouponDetail> siteCouponDetails = CouponDAO.getCoupondetails();
 		for (CouponDetail couponDetails : siteCouponDetails) {
 
@@ -22,4 +21,5 @@ public class DisplayCouponDetails {
 		}
 		return siteCouponDetails;
 	}
+
 }

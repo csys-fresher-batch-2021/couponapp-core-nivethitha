@@ -12,16 +12,16 @@ public class ConnectionUtil {
     //Default constructor
 	}
 
-	private static final String driverClass = System.getenv("spring.datasource.driver-class-name");
-	private static final String url = System.getenv("spring.datasource.url");
-	private static final String userName = System.getenv("spring.datasource.username");
-	private static final String password = System.getenv("spring.datasource.password");
+	private static final String DRIVER_CLASS_NAME = System.getenv("spring.datasource.driver-class-name");
+	private static final String DB_URL = System.getenv("spring.datasource.url");
+	private static final String DB_USERNAME = System.getenv("spring.datasource.username");
+	private static final String DB_PASSWORD = System.getenv("spring.datasource.password");
 
 	public static Connection getConnection() throws ConnectionException {
 		Connection connection;
 		try {
-			Class.forName(driverClass);
-			connection = DriverManager.getConnection(url, userName, password);
+			Class.forName(DRIVER_CLASS_NAME);
+			connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ConnectionException(e, "Unable to get Connection");

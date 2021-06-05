@@ -11,6 +11,9 @@ import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.ConnectionUtil;
 
 public class CouponDAO {
+	private CouponDAO() {
+		// Default constructor
+	}
 
 	public static List<CouponDetail> getCoupondetails() {
 		List<CouponDetail> siteCouponDetails = new ArrayList<>();
