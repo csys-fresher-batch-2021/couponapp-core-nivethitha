@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.ConnectionUtil;
@@ -29,9 +29,9 @@ public class CouponDAO {
 				int discount = rs.getInt("discount");
 				double purchasingAmount = rs.getDouble("purchasing_amount");
 				Date openDate = rs.getDate("start_date");
-				LocalDate startDate = ((java.sql.Date) openDate).toLocalDate();
+				LocalDate startDate =openDate.toLocalDate();
 				Date closeDate = rs.getDate("expiry_date");
-				LocalDate expiryDate = ((java.sql.Date) closeDate).toLocalDate();
+				LocalDate expiryDate =closeDate.toLocalDate();
 				String status = rs.getString("Status");
 				// Store the data in model
 				CouponDetail coupon = new CouponDetail(id, shoppingSiteName, discount, purchasingAmount, startDate,

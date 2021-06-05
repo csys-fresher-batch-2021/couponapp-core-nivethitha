@@ -22,8 +22,4 @@ public class DisplayCouponDetails {
 		}
 		return siteCouponDetails;
 	}
-
-	public static void main(String[] args) {
-		showDetails();
-	}
 }
