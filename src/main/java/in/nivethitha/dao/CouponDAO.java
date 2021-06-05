@@ -29,9 +29,9 @@ public class CouponDAO {
 				int discount = rs.getInt("discount");
 				double purchasingAmount = rs.getDouble("purchasing_amount");
 				Date openDate = rs.getDate("start_date");
-				LocalDate startDate =openDate.toLocalDate();
+				LocalDate startDate = openDate.toLocalDate();
 				Date closeDate = rs.getDate("expiry_date");
-				LocalDate expiryDate =closeDate.toLocalDate();
+				LocalDate expiryDate = closeDate.toLocalDate();
 				String status = rs.getString("Status");
 				// Store the data in model
 				CouponDetail coupon = new CouponDetail(id, shoppingSiteName, discount, purchasingAmount, startDate,
@@ -45,13 +45,8 @@ public class CouponDAO {
 		} finally {
 			ConnectionUtil.close(rs, pst, connection);
 		}
-		System.out.println(siteCouponDetails);
 
 		return siteCouponDetails;
-	}
-
-	public static void main(String[] args) {
-		getCoupondetails();
 	}
 
 }
