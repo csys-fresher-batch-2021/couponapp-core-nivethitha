@@ -6,23 +6,26 @@ public class CouponDetail {
 
 	private int id;
 	private String shoppingSiteName;
+	private String couponCode;
 	private int discount;
 	private double purchaseAmount;
 	private LocalDate startDate;
 	private LocalDate expiryDate;
 	private String status;
 
-	public CouponDetail(int id, String shoppingSiteName, int discount, double purchaseAmount, LocalDate startDate,
-			LocalDate expiryDate, String status) {
-		super();
-		this.id = id;
-		this.shoppingSiteName = shoppingSiteName;
-		this.discount = discount;
-		this.purchaseAmount = purchaseAmount;
-		this.startDate = startDate;
-		this.expiryDate = expiryDate;
-		this.status = status;
+	public CouponDetail(int id, String shoppingSiteName, String couponCode, int discount, double purchasingAmount,
+			LocalDate startDate, LocalDate expiryDate, String status) {
+		this.id=id;
+		this.shoppingSiteName=shoppingSiteName;
+		this.couponCode=couponCode;
+		this.discount=discount;
+		this.purchaseAmount=purchasingAmount;
+		this.startDate=startDate;
+		this.expiryDate=expiryDate;
+		this.status=status;
 	}
+
+	
 
 	public int getId() {
 		return id;
@@ -38,6 +41,14 @@ public class CouponDetail {
 
 	public void setShoppingSiteName(String shoppingSiteName) {
 		this.shoppingSiteName = shoppingSiteName;
+	}
+
+	public String getCouponCode() {
+		return couponCode;
+	}
+
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
 	}
 
 	public int getDiscount() {
@@ -82,8 +93,9 @@ public class CouponDetail {
 
 	@Override
 	public String toString() {
-		return "CouponDetail [id=" + id + ", shoppingSiteName=" + shoppingSiteName + ", discount=" + discount
-				+ ", purchaseAmount=" + purchaseAmount + ", startDate=" + startDate + ", expiryDate=" + expiryDate
-				+ ", status=" + status + "]";
+		return "CouponDetail [id=" + id + ", shoppingSiteName=" + shoppingSiteName + ", couponCode=" + couponCode
+				+ ", discount=" + discount + ", purchaseAmount=" + purchaseAmount + ", startDate=" + startDate
+				+ ", expiryDate=" + expiryDate + ", status=" + status + "]";
 	}
+
 }

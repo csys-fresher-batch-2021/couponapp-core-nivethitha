@@ -26,7 +26,6 @@ public class ConnectionUtil {
 			e.printStackTrace();
 			throw new ConnectionException(e, "Unable to get Connection");
 		}
-		System.out.println("connection created");
 		return connection;
 	}
 

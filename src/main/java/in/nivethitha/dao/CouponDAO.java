@@ -22,7 +22,7 @@ public class CouponDAO {
 		ResultSet rs = null;
 		try {
 			connection = ConnectionUtil.getConnection();
-			String sql = "select id,shopping_site,discount,purchasing_amount,start_date,expiry_date,Status from coupondetails";
+			String sql = "select id,shopping_site,coupon_code,discount,purchasing_amount,start_date,expiry_date,Status from coupondetails";
 			pst = connection.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
@@ -30,6 +30,7 @@ public class CouponDAO {
 				int id = rs.getInt("id");
 				String shoppingSiteName = rs.getString("shopping_site");
 				int discount = rs.getInt("discount");
+				String couponCode = rs.getString("coupon_code");
 				double purchasingAmount = rs.getDouble("purchasing_amount");
 				Date openDate = rs.getDate("start_date");
 				LocalDate startDate = openDate.toLocalDate();
@@ -37,8 +38,8 @@ public class CouponDAO {
 				LocalDate expiryDate = closeDate.toLocalDate();
 				String status = rs.getString("Status");
 				// Store the data in model
-				CouponDetail coupon = new CouponDetail(id, shoppingSiteName, discount, purchasingAmount, startDate,
-						expiryDate, status);
+				CouponDetail coupon = new CouponDetail(id, shoppingSiteName, couponCode, discount, purchasingAmount,
+						startDate, expiryDate, status);
 				// Store all user site coupon details in list
 				siteCouponDetails.add(coupon);
 			}
@@ -48,8 +49,11 @@ public class CouponDAO {
 		} finally {
 			ConnectionUtil.close(rs, pst, connection);
 		}
-
+		System.out.println(siteCouponDetails);
 		return siteCouponDetails;
 	}
 
+	public static void main(String[] args) {
+		getCoupondetails();
+	}
 }
