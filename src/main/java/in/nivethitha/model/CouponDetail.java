@@ -3,7 +3,7 @@ package in.nivethitha.model;
 import java.time.LocalDate;
 
 public class CouponDetail {
-
+	
 	private int id;
 	private String shoppingSiteName;
 	private String couponCode;
@@ -24,8 +24,6 @@ public class CouponDetail {
 		this.expiryDate=expiryDate;
 		this.status=status;
 	}
-
-	
 
 	public int getId() {
 		return id;

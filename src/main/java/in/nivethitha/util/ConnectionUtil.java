@@ -32,7 +32,6 @@ public class ConnectionUtil {
 	/**
 	 * This method is used to close the connection of Resultset connection and
 	 * prepared statement Method overloading
-	 * 
 	 * @param con
 	 */
 	public static void close(ResultSet rs, PreparedStatement ps, Connection con) {
