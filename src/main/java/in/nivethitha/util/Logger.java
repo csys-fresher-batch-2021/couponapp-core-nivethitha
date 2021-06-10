@@ -1,6 +1,9 @@
 package in.nivethitha.util;
 
 public class Logger {
+	private Logger() {
+		//Default constructor
+	}
 	/**
 	 * This log method is for capture the corresponding log records
 	 * @param obj
