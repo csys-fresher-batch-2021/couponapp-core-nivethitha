@@ -9,7 +9,7 @@ import in.nivethitha.exception.ConnectionException;
 
 public class ConnectionUtil {
 	private ConnectionUtil() {
-    //Default constructor
+		// Default constructor
 	}
 
 	private static final String DRIVER_CLASS_NAME = System.getenv("spring.datasource.driver-class-name");
@@ -23,7 +23,7 @@ public class ConnectionUtil {
 			Class.forName(DRIVER_CLASS_NAME);
 			connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.trace(e);
 			throw new ConnectionException(e, "Unable to get Connection");
 		}
 		return connection;
@@ -48,7 +48,7 @@ public class ConnectionUtil {
 			}
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			Logger.trace(e);
 		}
 	}
 

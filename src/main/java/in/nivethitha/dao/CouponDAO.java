@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.List;
 import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.ConnectionUtil;
+import in.nivethitha.util.Logger;
 
 public class CouponDAO {
 	private CouponDAO() {
@@ -44,7 +45,7 @@ public class CouponDAO {
 				siteCouponDetails.add(coupon);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.trace(e);
 			e.getMessage();
 		} finally {
 			ConnectionUtil.close(rs, pst, connection);
