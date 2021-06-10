@@ -12,12 +12,6 @@ public class CouponDetail {
 	private LocalDate startDate;
 	private LocalDate expiryDate;
 	private String status;
-/*
- * Empty constructor
- */
-	public CouponDetail() {
-
-	}
 
 	public int getId() {
 		return id;
