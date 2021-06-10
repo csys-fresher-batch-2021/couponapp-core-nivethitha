@@ -13,16 +13,8 @@ public class CouponDetail {
 	private LocalDate expiryDate;
 	private String status;
 
-	public CouponDetail(int id, String shoppingSiteName, String couponCode, int discount, double purchasingAmount,
-			LocalDate startDate, LocalDate expiryDate, String status) {
-		this.id = id;
-		this.shoppingSiteName = shoppingSiteName;
-		this.couponCode = couponCode;
-		this.discount = discount;
-		this.purchaseAmount = purchasingAmount;
-		this.startDate = startDate;
-		this.expiryDate = expiryDate;
-		this.status = status;
+	public CouponDetail() {
+
 	}
 
 	public int getId() {

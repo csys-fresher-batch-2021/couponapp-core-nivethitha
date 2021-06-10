@@ -39,8 +39,15 @@ public class CouponDAO {
 				LocalDate expiryDate = closeDate.toLocalDate();
 				String status = rs.getString("Status");
 				// Store the data in model
-				CouponDetail coupon = new CouponDetail(id, shoppingSiteName, couponCode, discount, purchasingAmount,
-						startDate, expiryDate, status);
+				CouponDetail coupon = new CouponDetail();
+				coupon.setId(id);
+				coupon.setShoppingSiteName(shoppingSiteName);
+				coupon.setDiscount(discount);
+				coupon.setCouponCode(couponCode);
+				coupon.setPurchaseAmount(purchasingAmount);
+				coupon.setStartDate(startDate);
+				coupon.setExpiryDate(expiryDate);
+				coupon.setStatus(status);
 				// Store all user site coupon details in list
 				siteCouponDetails.add(coupon);
 			}
