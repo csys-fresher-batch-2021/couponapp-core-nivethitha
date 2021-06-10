@@ -57,10 +57,7 @@ public class CouponDAO {
 		} finally {
 			ConnectionUtil.close(rs, pst, connection);
 		}
-		System.out.println(siteCouponDetails);
 		return siteCouponDetails;
 	}
-	public static void main(String[] args) {
-		getCoupondetails();
-	}
+	
 }
