@@ -3,6 +3,7 @@ package in.nivethitha.service;
 import java.util.List;
 import in.nivethitha.dao.CouponDAO;
 import in.nivethitha.model.CouponDetail;
+import in.nivethitha.util.Logger;
 
 public class DisplayCouponDetails {
 	private DisplayCouponDetails() {
@@ -16,7 +17,7 @@ public class DisplayCouponDetails {
 		List<CouponDetail> siteCouponDetails = CouponDAO.getCoupondetails();
 		for (CouponDetail couponDetails : siteCouponDetails) {
 
-			System.out.println(couponDetails);
+			Logger.log(couponDetails);
 
 		}
 		return siteCouponDetails;
