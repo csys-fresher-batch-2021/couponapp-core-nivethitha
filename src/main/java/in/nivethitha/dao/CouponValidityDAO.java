@@ -13,8 +13,11 @@ import in.nivethitha.util.ConnectionUtil;
 import in.nivethitha.util.Logger;
 
 public class CouponValidityDAO {
+	private CouponValidityDAO() {
+		//Default constructor
+	}
 	public static Map<String, LocalDate> getCouponValidity() {
-		Map<String, LocalDate> couponValidity = new HashMap<>();
+		Map<String, LocalDate>validity = new HashMap<>();
 		Connection connection = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -32,7 +35,7 @@ public class CouponValidityDAO {
 				coupon.setCouponCode(couponCode);
 				coupon.setExpiryDate(expiryDate);
 				// Store coupon validity details in list
-				couponValidity.put(couponCode, expiryDate);
+				validity.put(couponCode, expiryDate);
 
 			}
 		} catch (Exception e) {
@@ -41,7 +44,7 @@ public class CouponValidityDAO {
 		} finally {
 			ConnectionUtil.close(rs, pst, connection);
 		}
-		return couponValidity;
+		return validity;
 	}
 	
 }

@@ -24,7 +24,7 @@ public class CouponValidityService {
 		Map<String, LocalDate> CouponValidity = CouponValidityDAO.getCouponValidity();
 		if (CouponValidity.containsKey(couponCode.toUpperCase())) {
 			if (DateValidator.isExpired(CouponValidity.get(couponCode.toUpperCase()))) {
-				Logger.log("In progress");
+				Logger.log("Coupon is in progress");
 			}
 		} else {
 			Logger.log("Sorry!coupon code does not match");
