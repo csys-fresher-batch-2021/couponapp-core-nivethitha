@@ -51,5 +51,8 @@ public class ConnectionUtil {
 			Logger.trace(e);
 		}
 	}
+	public static void main(String[] args) {
+		getConnection();
+	}
 
 }
