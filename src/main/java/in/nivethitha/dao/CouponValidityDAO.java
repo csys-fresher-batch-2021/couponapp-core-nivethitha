@@ -16,6 +16,10 @@ public class CouponValidityDAO {
 	private CouponValidityDAO() {
 		//Default constructor
 	}
+	/**
+	 * This method is used to get the coupon code and expiry date from database
+	 * @return
+	 */
 	public static Map<String, LocalDate> getCouponValidity() {
 		Map<String, LocalDate>validity = new HashMap<>();
 		Connection connection = null;
@@ -46,5 +50,4 @@ public class CouponValidityDAO {
 		}
 		return validity;
 	}
-	
 }
