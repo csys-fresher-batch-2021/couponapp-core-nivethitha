@@ -26,6 +26,8 @@ public class ConnectionUtil {
 			Logger.trace(e);
 			throw new ConnectionException(e, "Unable to get Connection");
 		}
+		System.out.println(connection);
+
 		return connection;
 	}
 
@@ -50,6 +52,9 @@ public class ConnectionUtil {
 
 			Logger.trace(e);
 		}
+	}
+	public static void main(String[] args) {
+		getConnection();
 	}
 
 }

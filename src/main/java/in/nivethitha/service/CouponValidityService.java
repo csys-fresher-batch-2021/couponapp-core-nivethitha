@@ -14,7 +14,6 @@ public class CouponValidityService {
 
 	/**
 	 * This method is for checking whether the coupon is expired or not
-	 * 
 	 * @param date
 	 * @return
 	 * @throws InvalidDateException
