@@ -1,7 +1,7 @@
 package in.nivethitha.util;
 
 import in.nivethitha.exception.EmptyStringException;
-import in.nivethitha.exception.InvalidCouponCodeLength;
+import in.nivethitha.exception.InvalidException;
 
 public class StringValidator {
 	private StringValidator() {
@@ -29,9 +29,9 @@ public class StringValidator {
 	 * @return
 	 * @throws InvalidCouponCodeLength
 	 */
-	public static boolean isvalidCoupon(String couponCode) throws InvalidCouponCodeLength {
+	public static boolean isvalidCoupon(String couponCode) throws InvalidException {
 		if(couponCode.length()<5) {
-			throw new InvalidCouponCodeLength("Coupon code should not be lesser than five");
+			throw new InvalidException("Coupon code should not be lesser than five");
 		}
 		return false;
 		

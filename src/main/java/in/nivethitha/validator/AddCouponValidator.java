@@ -2,10 +2,7 @@ package in.nivethitha.validator;
 
 
 import in.nivethitha.exception.EmptyStringException;
-import in.nivethitha.exception.InvalidCouponCodeLength;
-import in.nivethitha.exception.InvalidDateException;
-import in.nivethitha.exception.InvalidDiscountException;
-import in.nivethitha.exception.InvalidPurchaseAmountException;
+import in.nivethitha.exception.InvalidException;
 import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.NumberValidator;
 import in.nivethitha.util.StringValidator;
@@ -21,20 +18,25 @@ public class AddCouponValidator {
 	 * and expiry date should not be the expired date
 	 * @param co
 	 * @return
+	 * @throws InvalidException 
 	 * @throws EmptyStringException
 	 * @throws InvalidCouponCodeLength
 	 * @throws InvalidDateException 
 	 * @throws InvalidPurchaseAmountException 
 	 * @throws InvalidDiscountException 
 	 */
-	public static boolean isValidCouponDetails(CouponDetail co) throws EmptyStringException, InvalidCouponCodeLength, InvalidDiscountException, InvalidPurchaseAmountException, InvalidDateException {
+	public static boolean isValidCouponDetails(CouponDetail co){
 		boolean isValid = false;
-		if (StringValidator.isValidString(co.getShoppingSiteName()) && StringValidator.isvalidCoupon(co.getCouponCode())
-				&& NumberValidator.isPositiveDiscountPercentage(co.getDiscount())
-				&& NumberValidator.isValidAmount(co.getPurchaseAmount())
-				&& NumberValidator.isValidDate(co.getStartDate()) && NumberValidator.isValidDate(co.getExpiryDate())
-				&& StringValidator.isValidString(co.getStatus())) {
-			isValid = true;
+		try {
+			if (StringValidator.isValidString(co.getShoppingSiteName()) && StringValidator.isvalidCoupon(co.getCouponCode())
+					&& NumberValidator.isPositiveDiscountPercentage(co.getDiscount())
+					&& NumberValidator.isValidAmount(co.getPurchaseAmount())
+					&& NumberValidator.isValidDate(co.getStartDate()) && NumberValidator.isValidDate(co.getExpiryDate())
+					&& StringValidator.isValidString(co.getStatus())) {
+				isValid = true;
+			}
+		} catch (EmptyStringException | InvalidException e) {
+			e.printStackTrace();
 		}
 		return isValid;
 	}

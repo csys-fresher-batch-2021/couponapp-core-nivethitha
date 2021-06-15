@@ -38,7 +38,7 @@ public class TestNumberValidator {
 			LocalDate givenDate = LocalDate.parse(date);
 			NumberValidator.isValidDate(givenDate);
 		} catch (Exception e) {
-			assertEquals("don't give expired date", e.getMessage());
+			assertEquals("Please give valid date", e.getMessage());
 			Logger.trace(e);
 		}
 
