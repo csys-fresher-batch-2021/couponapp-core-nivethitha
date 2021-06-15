@@ -4,6 +4,7 @@ package in.nivethitha.validator;
 import in.nivethitha.exception.EmptyStringException;
 import in.nivethitha.exception.InvalidException;
 import in.nivethitha.model.CouponDetail;
+import in.nivethitha.util.Logger;
 import in.nivethitha.util.NumberValidator;
 import in.nivethitha.util.StringValidator;
 
@@ -36,7 +37,7 @@ public class AddCouponValidator {
 				isValid = true;
 			}
 		} catch (EmptyStringException | InvalidException e) {
-			e.printStackTrace();
+		        Logger.trace(e);
 		}
 		return isValid;
 	}
