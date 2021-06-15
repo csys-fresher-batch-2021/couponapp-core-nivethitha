@@ -11,6 +11,9 @@ import in.nivethitha.util.NumberValidator;
 import in.nivethitha.util.StringValidator;
 
 public class AddCouponValidator {
+	private AddCouponValidator() {
+		//Default constructor
+	}
 	/**
 	 * This method is used to check whether site name and coupon code field,status
 	 * should not be empty and discount field should not be lesser than 0 then
