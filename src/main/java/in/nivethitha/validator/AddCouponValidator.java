@@ -3,11 +3,14 @@ package in.nivethitha.validator;
 
 import in.nivethitha.exception.EmptyStringException;
 import in.nivethitha.exception.InvalidCouponCodeLength;
+import in.nivethitha.exception.InvalidDateException;
+import in.nivethitha.exception.InvalidDiscountException;
+import in.nivethitha.exception.InvalidPurchaseAmountException;
 import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.NumberValidator;
 import in.nivethitha.util.StringValidator;
 
-public class AddCouponValidation {
+public class AddCouponValidator {
 	/**
 	 * This method is used to check whether site name and coupon code field,status
 	 * should not be empty and discount field should not be lesser than 0 then
@@ -17,8 +20,11 @@ public class AddCouponValidation {
 	 * @return
 	 * @throws EmptyStringException
 	 * @throws InvalidCouponCodeLength
+	 * @throws InvalidDateException 
+	 * @throws InvalidPurchaseAmountException 
+	 * @throws InvalidDiscountException 
 	 */
-	public static boolean isValidCouponDetails(CouponDetail co) throws EmptyStringException, InvalidCouponCodeLength {
+	public static boolean isValidCouponDetails(CouponDetail co) throws EmptyStringException, InvalidCouponCodeLength, InvalidDiscountException, InvalidPurchaseAmountException, InvalidDateException {
 		boolean isValid = false;
 		if (StringValidator.isValidString(co.getShoppingSiteName()) && StringValidator.isvalidCoupon(co.getCouponCode())
 				&& NumberValidator.isPositiveDiscountPercentage(co.getDiscount())

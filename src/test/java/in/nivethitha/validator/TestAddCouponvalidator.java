@@ -50,8 +50,7 @@ public class TestAddCouponvalidator {
 		try {
 			NumberValidator.isValidAmount(100);
 		} catch (Exception e) {
-			assertEquals("Sorry!coupon is available for only the purchasing amount should be above 500Rs",
-					e.getMessage());
+			assertEquals("Sorry!purchasing amount should be greater than 500 to get coupon",e.getMessage());
 
 			Logger.trace(e);
 		}

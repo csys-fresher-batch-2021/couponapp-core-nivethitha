@@ -12,6 +12,9 @@ import in.nivethitha.util.ConnectionUtil;
 import in.nivethitha.util.Logger;
 
 public class InsertCouponDAO {
+	private InsertCouponDAO() {
+		//default constructor
+	}
 
 	/**
 	 * This method is used to insert coupon details into database
@@ -37,7 +40,7 @@ public class InsertCouponDAO {
 			pst.setDate(6, closeDate);
 			pst.setString(7, coupon.getStatus());
 			pst.executeUpdate();
-			System.out.println("coupon details added successfully");
+			Logger.log("coupon details added successfully");
 		} catch (ConnectionException e) {
 			Logger.trace(e);
 			throw new DBException("Unable to add coupon details");

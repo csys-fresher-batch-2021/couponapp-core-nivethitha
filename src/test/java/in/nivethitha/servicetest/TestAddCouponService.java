@@ -1,10 +1,13 @@
 package in.nivethitha.servicetest;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDate;
 
 import org.junit.Test;
 
 import in.nivethitha.service.AddCouponService;
+import in.nivethitha.util.Logger;
 
 public class TestAddCouponService {
 	@Test
@@ -17,7 +20,13 @@ public class TestAddCouponService {
 		LocalDate sdate = LocalDate.parse(openingDate);
 		String closingDate = "2021-09-05";
 		LocalDate edate = LocalDate.parse(closingDate);
-		AddCouponService.addCoupon("clubfactory", "CLUB078", 18, 7000, sdate, edate, "OPEN");
+		try {
+			AddCouponService.addCoupon("clubfactory", "CLUB078", 18, 7000, sdate, edate, "OPEN");
+		} catch (Exception e) {
+			assertEquals("coupon details added successfully", e.getMessage());
+
+			Logger.trace(e);
+		}
 	}
 
 }

@@ -9,6 +9,9 @@ import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.Logger;
 
 public class AddCouponService {
+	private AddCouponService() {
+		//Default constructor
+	}
 	/**
 	 * This method is used to insert the coupon details into DAO
 	 * @param siteName

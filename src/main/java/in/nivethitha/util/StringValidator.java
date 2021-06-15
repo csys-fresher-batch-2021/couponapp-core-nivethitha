@@ -4,6 +4,9 @@ import in.nivethitha.exception.EmptyStringException;
 import in.nivethitha.exception.InvalidCouponCodeLength;
 
 public class StringValidator {
+	private StringValidator() {
+		//Default constructor
+	}
 	/**
 	 * This method is used to check whether the field is empty or null
 	 * @param name
