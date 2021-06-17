@@ -21,7 +21,7 @@ public class TestCouponService {
 		String closingDate = "2021-09-05";
 		LocalDate edate = LocalDate.parse(closingDate);
 		try {
-			CouponService.addCoupon("clubfactory", "CLUB078", 18, 7000, sdate, edate, "OPEN");
+			CouponService.addCoupon("clubfactory", "CLUB078", 10, 7000, sdate, edate, "OPEN");
 		} catch (Exception e) {
 			assertEquals("coupon details added successfully", e.getMessage());
 
