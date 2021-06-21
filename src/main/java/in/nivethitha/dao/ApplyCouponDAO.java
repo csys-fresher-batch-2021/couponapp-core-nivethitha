@@ -11,7 +11,9 @@ import java.util.List;
 
 import in.nivethitha.exception.ConnectionException;
 import in.nivethitha.exception.DBException;
+import in.nivethitha.exception.InvalidException;
 import in.nivethitha.model.ApplyCoupon;
+import in.nivethitha.service.ApplyCouponService;
 import in.nivethitha.util.ConnectionUtil;
 import in.nivethitha.util.Logger;
 
@@ -86,6 +88,116 @@ public class ApplyCouponDAO {
 		}
 		return expiryDate;
 
+	}
+
+	/**
+	 * This method is used to get number of times a coupon used
+	 * @param id
+	 * @return
+	 * @throws DBException
+	 * @throws InvalidException
+	 */
+
+	public static int getNumberOfTimesUsed(int id) throws DBException, InvalidException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int numberOfTimesCouponUsed = 0;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "select no_of_times_used from coupondetails where id=" + id;
+			pst = con.prepareStatement(sql);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				numberOfTimesCouponUsed = rs.getInt("no_of_times_used");
+
+			}
+		} catch (ConnectionException | SQLException e) {
+			Logger.trace(e);
+			throw new DBException("Unable to get how many times used");
+
+		} finally {
+			ConnectionUtil.close(rs, pst, con);
+
+		}
+
+		System.out.println("How many times that coupon used:" + numberOfTimesCouponUsed);
+		return numberOfTimesCouponUsed;
+	}
+
+	/**
+	 * This method is used to set the row count
+	 * @param id
+	 * @return
+	 * @throws InvalidException
+	 * @throws DBException
+	 */
+
+	public static int toUpdateCountValue(int id) throws InvalidException, DBException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int numberOfTimesUsed = ApplyCouponService.usageCount(id);
+
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "update coupondetails set no_of_times_used=? where id=" + id;
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, numberOfTimesUsed);
+			rs = pst.executeQuery();
+
+		} catch (ConnectionException | SQLException e) {
+			Logger.trace(e);
+		} finally {
+			ConnectionUtil.close(rs, pst, con);
+		}
+		System.out.println("UpdatedCountValue:" + numberOfTimesUsed);
+		return numberOfTimesUsed;
+
+	}
+
+	/**
+	 * This method is used to get the updated row count
+	 * @param id
+	 * @param couponCode
+	 * @return
+	 * @throws InvalidException
+	 * @throws DBException
+	 */
+	public static int getCountValue(int id, String couponCode) throws InvalidException, DBException {
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int no_of_times_used = ApplyCouponService.usageCount(id);
+		int rowCount = 0;
+		System.out.println("after incremented count:" + no_of_times_used);
+
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "select no_of_times_used as count from coupondetails where id=? and coupon_code=?";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.setString(2, couponCode);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				rowCount = rs.getInt("count");
+
+			}
+
+		} catch (ConnectionException | SQLException e) {
+			Logger.trace(e);
+		} finally {
+			ConnectionUtil.close(rs, pst, con);
+		}
+		System.out.println("getCountValue:" + rowCount);
+
+		return rowCount;
+
+	}
+
+	public static void main(String[] args) throws DBException, InvalidException {
+		toUpdateCountValue(10);
 	}
 
 }

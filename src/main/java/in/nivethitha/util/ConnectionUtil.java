@@ -37,6 +37,7 @@ public class ConnectionUtil {
 	public static void close(ResultSet rs, PreparedStatement ps, Connection con) {
 		try {
 			if (rs != null) {
+
 				rs.close();
 			}
 			if (ps != null) {
@@ -44,6 +45,7 @@ public class ConnectionUtil {
 				ps.close();
 			}
 			if (con != null) {
+				
 				con.close();
 			}
 		} catch (SQLException e) {
