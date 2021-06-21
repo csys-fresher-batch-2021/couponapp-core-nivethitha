@@ -87,8 +87,4 @@ public class ApplyCouponService {
 
 	}
 
-	public static void main(String[] args) throws InvalidException, DBException {
-		isValidCoupon(2,"MYNT1120");
-	}
-
 }
