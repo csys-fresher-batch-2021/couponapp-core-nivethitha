@@ -53,7 +53,7 @@ public class ApplyCouponService {
 				break;
 			}
 		}
-		System.out.println(priceAmount);
+		Logger.log(priceAmount);
 		return priceAmount;
 
 	}
@@ -67,7 +67,7 @@ public class ApplyCouponService {
 	 */
 	public static int usageCount(int id) throws DBException, InvalidException {
 		int count = ApplyCouponDAO.getNumberOfTimesUsed(id);
-		System.out.println("usagecount" + (count++));
+		Logger.log("usagecount" +(count++));
 		return count++;
 
 	}

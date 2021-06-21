@@ -121,7 +121,7 @@ public class ApplyCouponDAO {
 
 		}
 
-		System.out.println("How many times that coupon used:" + numberOfTimesCouponUsed);
+		Logger.log("How many times that coupon used:" + numberOfTimesCouponUsed);
 		return numberOfTimesCouponUsed;
 	}
 
@@ -151,7 +151,7 @@ public class ApplyCouponDAO {
 		} finally {
 			ConnectionUtil.close(rs, pst, con);
 		}
-		System.out.println("UpdatedCountValue:" + numberOfTimesUsed);
+		Logger.log("UpdatedCountValue:" + numberOfTimesUsed);
 		return numberOfTimesUsed;
 
 	}
@@ -190,14 +190,11 @@ public class ApplyCouponDAO {
 		} finally {
 			ConnectionUtil.close(rs, pst, con);
 		}
-		System.out.println("getCountValue:" + rowCount);
+		Logger.log("getCountValue:" + rowCount);
 
 		return rowCount;
 
 	}
 
-	public static void main(String[] args) throws DBException, InvalidException {
-		toUpdateCountValue(10);
-	}
 
 }
