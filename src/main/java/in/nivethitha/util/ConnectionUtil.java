@@ -30,7 +30,7 @@ public class ConnectionUtil {
 	}
 
 	/**
-	 * This method is used to close the connection of Resultset connection and
+	 * This method is used to close the connection of ResultSet connection and
 	 * prepared statement Method overloading
 	 * @param con
 	 */
@@ -51,8 +51,5 @@ public class ConnectionUtil {
 			Logger.trace(e);
 		}
 	}
-	public static void main(String[] args) {
-		getConnection();
-	}
-
+	
 }
