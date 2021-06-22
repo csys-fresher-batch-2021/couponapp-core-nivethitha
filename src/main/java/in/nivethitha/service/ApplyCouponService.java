@@ -86,13 +86,5 @@ public class ApplyCouponService {
 		}
 
 	}
-	public static void main(String[] args) {
-		try {
-			isValidCoupon(3,"AMZOG32");
-		} catch (InvalidException | DBException | ExpiryDateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 }
