@@ -67,7 +67,7 @@ public class ApplyCouponService {
 	 * @throws DBException
 	 * @throws InvalidException
 	 */
-	public static int usageCount(int id) throws DBException, InvalidException {
+	public static int usageCount(int id) throws DBException {
 		int count = ApplyCouponDAO.getNumberOfTimesUsed(id);
 		return count++;
 
