@@ -61,6 +61,7 @@ public class ApplyCouponDAO {
 	/**
 	 * This method is used to get the expiry date
 	 * @param couponCode
+	 * @param  
 	 * @return
 	 * @throws DBException
 	 */
@@ -69,12 +70,14 @@ public class ApplyCouponDAO {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		
 		LocalDate expiryDate = null;
 		try {
 
 			con = ConnectionUtil.getConnection();
-			String sql = "select expiry_date from coupondetails where coupon_code=" + "'" + couponCode + "'";
+			String sql = "select expiry_date from coupondetails where coupon_code=?";
 			pst = con.prepareStatement(sql);
+			pst.setString(1,couponCode);
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				Date date = rs.getDate("expiry_date");
@@ -105,8 +108,9 @@ public class ApplyCouponDAO {
 		int numberOfTimesCouponUsed = 0;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select no_of_times_used from coupondetails where id=" + id;
+			String sql = "select no_of_times_used from coupondetails where id=?";
 			pst = con.prepareStatement(sql);
+			pst.setInt(1,id);
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				numberOfTimesCouponUsed = rs.getInt("no_of_times_used");
@@ -121,7 +125,6 @@ public class ApplyCouponDAO {
 
 		}
 
-		Logger.log("How many times that coupon used:" + numberOfTimesCouponUsed);
 		return numberOfTimesCouponUsed;
 	}
 
@@ -141,17 +144,17 @@ public class ApplyCouponDAO {
 
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "update coupondetails set no_of_times_used=? where id=" + id;
+			String sql = "update coupondetails set no_of_times_used=? where id=?";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, numberOfTimesUsed);
-			rs = pst.executeQuery();
+			pst.setInt(2, id);
+			pst.execute();
 
 		} catch (ConnectionException | SQLException e) {
 			Logger.trace(e);
 		} finally {
 			ConnectionUtil.close(rs, pst, con);
 		}
-		Logger.log("UpdatedCountValue:" + numberOfTimesUsed);
 		return numberOfTimesUsed;
 
 	}
@@ -169,10 +172,7 @@ public class ApplyCouponDAO {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		int no_of_times_used = ApplyCouponService.usageCount(id);
 		int rowCount = 0;
-		System.out.println("after incremented count:" + no_of_times_used);
-
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "select no_of_times_used as count from coupondetails where id=? and coupon_code=?";
@@ -190,8 +190,6 @@ public class ApplyCouponDAO {
 		} finally {
 			ConnectionUtil.close(rs, pst, con);
 		}
-		Logger.log("getCountValue:" + rowCount);
-
 		return rowCount;
 
 	}

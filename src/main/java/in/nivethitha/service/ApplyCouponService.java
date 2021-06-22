@@ -29,13 +29,13 @@ public class ApplyCouponService {
 	 * @throws DBException
 	 * @throws
 	 */
-	public static double isValidCoupon(int id, String couponCode) throws InvalidException, DBException {
+	public static double isValidCoupon(int id, String couponCode) throws InvalidException, DBException, ExpiryDateException {
 
 		Double priceAmount = 0d;
 		String toIgnoreCase = couponCode.toUpperCase();
 		List<ApplyCoupon> coupon = ApplyCouponDAO.getCoupon();
 		try {
-			// to get expiry date
+			// to check whether the coupon is expired or not
 			DateValidator.isExpired(ApplyCouponDAO.getExpiryDate(couponCode));
 			// to get the count of particular id(number of times used)
 			getCountOfparticularId(id, couponCode);
@@ -46,14 +46,15 @@ public class ApplyCouponService {
 
 		} catch (ExpiryDateException | DBException e) {
 			Logger.trace(e);
-		}
+            throw new InvalidException("expired");
+}
 		for (ApplyCoupon coupons : coupon) {
 			if (couponCode.equals(toIgnoreCase) && coupons.getId() == (id)) {
 				priceAmount = coupons.getFinalBillAmount();
 				break;
 			}
 		}
-		Logger.log(priceAmount);
+		Logger.log("Your bill amount is: "+priceAmount);
 		return priceAmount;
 
 	}
@@ -67,7 +68,6 @@ public class ApplyCouponService {
 	 */
 	public static int usageCount(int id) throws DBException, InvalidException {
 		int count = ApplyCouponDAO.getNumberOfTimesUsed(id);
-		Logger.log("usagecount" +(count++));
 		return count++;
 
 	}
@@ -85,6 +85,14 @@ public class ApplyCouponService {
 			throw new InvalidException("Sorry to say this we don’t offer discount for this because the same coupon code is already two times used by the user");
 		}
 
+	}
+	public static void main(String[] args) {
+		try {
+			isValidCoupon(3,"AMZOG32");
+		} catch (InvalidException | DBException | ExpiryDateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
