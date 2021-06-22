@@ -1,9 +1,7 @@
 package in.nivethitha.servicetest;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-
 import in.nivethitha.exception.DBException;
 import in.nivethitha.exception.ExpiryDateException;
 import in.nivethitha.exception.InvalidException;
@@ -12,7 +10,6 @@ import in.nivethitha.service.ApplyCouponService;
 public class TestApplyCouponService {
 	/**
 	 * This method returns the expected bill amount as 3910.0
-	 * 
 	 * @throws ExpiryDateException
 	 */
 	@Test
@@ -22,7 +19,7 @@ public class TestApplyCouponService {
 
 		try {
 			Double result = ApplyCouponService.isValidCoupon(id, couponCode);
-			System.out.println("Your bill amount is: " + result);
+			//System.out.println("Your bill amount is: " + result);
 			assertEquals(3910.0, result, 0.1);
 
 		} catch (InvalidException | DBException e) {
@@ -39,7 +36,7 @@ public class TestApplyCouponService {
 		String couponCode = "AMZOG32";
 		try {
 			ApplyCouponService.isValidCoupon(id, couponCode);
-		} catch (InvalidException | DBException | ExpiryDateException e) {
+		} catch ( DBException | ExpiryDateException | InvalidException e) {
 			e.printStackTrace();
 		}
 	}
@@ -47,6 +44,7 @@ public class TestApplyCouponService {
 	/**
 	 * This method throws invalid exception,the limit exceeds two
 	 */
+
 	@Test
 	public void testWithNumberOfTimesExceededLimit() {// limit-2
 		int id = 10;

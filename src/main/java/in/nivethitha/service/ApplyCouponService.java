@@ -47,8 +47,10 @@ public class ApplyCouponService {
 
 		} catch (ExpiryDateException | DBException e) {
 			Logger.trace(e);
-			throw new InvalidException("expired");
+			System.exit(1);
+			
 		}
+
 		for (ApplyCoupon coupons : coupon) {
 			if (couponCode.equals(toIgnoreCase) && coupons.getId() == (id)) {
 				priceAmount = coupons.getFinalBillAmount();
@@ -88,5 +90,5 @@ public class ApplyCouponService {
 		}
 
 	}
-
+	
 }
