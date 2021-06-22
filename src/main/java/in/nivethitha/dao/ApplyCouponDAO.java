@@ -101,7 +101,7 @@ public class ApplyCouponDAO {
 	 * @throws InvalidException
 	 */
 
-	public static int getNumberOfTimesUsed(int id) throws DBException, InvalidException {
+	public static int getNumberOfTimesUsed(int id) throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -167,7 +167,7 @@ public class ApplyCouponDAO {
 	 * @throws InvalidException
 	 * @throws DBException
 	 */
-	public static int getCountValue(int id, String couponCode) throws InvalidException, DBException {
+	public static int getCountValue(int id, String couponCode) throws DBException {
 
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -187,6 +187,8 @@ public class ApplyCouponDAO {
 
 		} catch (ConnectionException | SQLException e) {
 			Logger.trace(e);
+			throw new DBException("Unable to get number of times used");
+
 		} finally {
 			ConnectionUtil.close(rs, pst, con);
 		}
