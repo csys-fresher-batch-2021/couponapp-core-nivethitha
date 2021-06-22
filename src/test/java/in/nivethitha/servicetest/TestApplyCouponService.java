@@ -1,42 +1,58 @@
 package in.nivethitha.servicetest;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-
 import in.nivethitha.exception.DBException;
 import in.nivethitha.exception.ExpiryDateException;
 import in.nivethitha.exception.InvalidException;
 import in.nivethitha.service.ApplyCouponService;
-import in.nivethitha.util.Logger;
 
 public class TestApplyCouponService {
+	/**
+	 * This method returns the expected bill amount as 3910.0
+	 * @throws ExpiryDateException
+	 */
 	@Test
-	public void testWithValidCouponCode() throws DBException, ExpiryDateException {
-		int id = 10;
-		String couponCode = "CLUB078";
+	public void testWithvalidCouponAndNotExpired() throws ExpiryDateException {
+		int id = 1;
+		String couponCode = "FLIP1020";
+
 		try {
-			Double billAmount = ApplyCouponService.isValidCoupon(couponCode, id);
-			System.out.println("Your bill amount is " + billAmount);
-			assertEquals(6300.0, billAmount, 0.001);
+			Double result = ApplyCouponService.isValidCoupon(id, couponCode);
+			//System.out.println("Your bill amount is: " + result);
+			assertEquals(3910.0, result, 0.1);
 
-		} catch (InvalidException e) {
-
-			Logger.trace(e);
+		} catch (InvalidException | DBException e) {
+			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * This method throws the expiry exception because this coupon date is expired
+	 */
 	@Test
-	public void testWithExpiredCouponCode() throws DBException, ExpiryDateException {
+	public void testWithExpiredCoupon() {// expiry date-2021-05-25
 		int id = 3;
 		String couponCode = "AMZOG32";
 		try {
-			Double billAmount = ApplyCouponService.isValidCoupon(couponCode, id);
-			System.out.println("Your bill amount is " + billAmount);
-		} catch (InvalidException e) {
-			assertEquals("Coupon has expired", e.getMessage());
+			ApplyCouponService.isValidCoupon(id, couponCode);
+		} catch ( DBException | ExpiryDateException | InvalidException e) {
+			e.printStackTrace();
+		}
+	}
 
-			Logger.trace(e);
+	/**
+	 * This method throws invalid exception,the limit exceeds two
+	 */
+
+	@Test
+	public void testWithNumberOfTimesExceededLimit() {// limit-2
+		int id = 10;
+		String couponCode = "CLUB078";
+		try {
+			ApplyCouponService.isValidCoupon(id, couponCode);
+		} catch (InvalidException | DBException | ExpiryDateException e) {
+			e.printStackTrace();
 		}
 	}
 }
