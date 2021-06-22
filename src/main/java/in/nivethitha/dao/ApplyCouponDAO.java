@@ -136,7 +136,7 @@ public class ApplyCouponDAO {
 	 * @throws DBException
 	 */
 
-	public static int toUpdateCountValue(int id) throws InvalidException, DBException {
+	public static int toUpdateCountValue(int id) throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
