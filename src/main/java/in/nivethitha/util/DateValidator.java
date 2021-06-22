@@ -17,16 +17,11 @@ public class DateValidator {
 		{
 			if (givenDate.isBefore(LocalDate.now())) {
 				throw new ExpiryDateException("coupon has expired");
-
 			}
 
 			return true;
-
-
 		}
-
-
-		
+	
 	}
 
 
