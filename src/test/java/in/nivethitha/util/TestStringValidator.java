@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import in.nivethitha.exception.EmptyStringException;
-import in.nivethitha.exception.InvalidException;
+import in.nivethitha.exception.ServiceException;
 
 public class TestStringValidator {
 	@Test
@@ -36,7 +36,7 @@ public class TestStringValidator {
 		String couponCode = "FL1";
 		try {
 			StringValidator.isvalidCoupon(couponCode);
-		} catch (InvalidException e) {
+		} catch (ServiceException e) {
 			assertEquals("Coupon code should not be lesser than five", e.getMessage());
 
 			Logger.trace(e);

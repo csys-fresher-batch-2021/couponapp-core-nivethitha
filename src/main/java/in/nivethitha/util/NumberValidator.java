@@ -1,7 +1,7 @@
 package in.nivethitha.util;
 
 import java.time.LocalDate;
-import in.nivethitha.exception.InvalidException;
+import in.nivethitha.exception.ServiceException;
 
 public class NumberValidator {
 	private NumberValidator() {
@@ -15,9 +15,9 @@ public class NumberValidator {
 	 * @return
 	 * @throws InvalidDiscountException
 	 */
-	public static boolean isPositiveDiscountPercentage(int discount) throws InvalidException {
+	public static boolean isPositiveDiscountPercentage(int discount) throws ServiceException {
 		if (discount <= 0) {
-			throw new InvalidException("discount percentage should not be lesser than 0");
+			throw new ServiceException("discount percentage should not be lesser than 0");
 		}
 		return true;
 
@@ -28,14 +28,14 @@ public class NumberValidator {
 	 * lesser than 1000 If the amount is lesser than 1000,not able to give discount
 	 * @param purchaseamount
 	 * @return
-	 * @throws InvalidException
+	 * @throws ServiceException
 	 * @throws InvalidPurchaseAmountException
 	 */
-	public static boolean isValidAmount(double purchaseAmount) throws InvalidException {
+	public static boolean isValidAmount(double purchaseAmount) throws ServiceException {
 
 		if (purchaseAmount < 500) {
 
-			throw new InvalidException("Sorry!purchasing amount should be greater than 500 to get coupon");
+			throw new ServiceException("Sorry!purchasing amount should be greater than 500 to get coupon");
 		}
 		return false;
 	}
@@ -46,11 +46,11 @@ public class NumberValidator {
 	 * @return
 	 * @throws InvalidDateException
 	 */
-	public static boolean isValidDate(LocalDate givenDate) throws InvalidException {
+	public static boolean isValidDate(LocalDate givenDate) throws ServiceException {
 
 		if (givenDate.isBefore(LocalDate.now())) {
 
-			throw new InvalidException("Please give valid date");
+			throw new ServiceException("Please give valid date");
 
 		}
 		return false;

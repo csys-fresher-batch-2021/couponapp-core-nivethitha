@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import in.nivethitha.exception.EmptyStringException;
-import in.nivethitha.exception.InvalidException;
+import in.nivethitha.exception.ServiceException;
 import in.nivethitha.util.Logger;
 import in.nivethitha.util.NumberValidator;
 import in.nivethitha.util.StringValidator;
@@ -27,7 +27,7 @@ public class TestAddCouponvalidator {
 	public void testCouponCodeLengthWithLesserThanFive() {
 		try {
 			StringValidator.isvalidCoupon("");
-		} catch (InvalidException e) {
+		} catch (ServiceException e) {
 			assertEquals("Coupon code should not be lesser than five", e.getMessage());
 
 			Logger.trace(e);

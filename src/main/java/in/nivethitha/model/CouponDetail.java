@@ -1,12 +1,21 @@
 package in.nivethitha.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CouponDetail {
 
+
+	@Override
+	public String toString() {
+		return "CouponDetail [id=" + id + ", shoppingSiteName=" + shoppingSiteName + ", createdDate=" + createdDate
+				+ ", couponCode=" + couponCode + ", discount=" + discount + ", purchaseAmount=" + purchaseAmount
+				+ ", startDate=" + startDate + ", expiryDate=" + expiryDate + ", status=" + status + "]";
+	}
 	private int id;
 	private String shoppingSiteName;
 	private String couponCode;
+	private LocalDateTime createdDate;
 	private int discount;
 	private double purchaseAmount;
 	private LocalDate startDate;
@@ -77,11 +86,12 @@ public class CouponDetail {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "CouponDetail [id=" + id + ", shoppingSiteName=" + shoppingSiteName + ", couponCode=" + couponCode
-				+ ", discount=" + discount + ", purchaseAmount=" + purchaseAmount + ", startDate=" + startDate
-				+ ", expiryDate=" + expiryDate + ", status=" + status + "]";
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
 	}
 
 }

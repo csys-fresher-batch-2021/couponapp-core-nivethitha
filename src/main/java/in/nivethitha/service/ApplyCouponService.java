@@ -5,7 +5,7 @@ import java.util.List;
 import in.nivethitha.dao.ApplyCouponDAO;
 import in.nivethitha.exception.DBException;
 import in.nivethitha.exception.ExpiryDateException;
-import in.nivethitha.exception.InvalidException;
+import in.nivethitha.exception.ServiceException;
 import in.nivethitha.model.ApplyCoupon;
 import in.nivethitha.util.DateValidator;
 import in.nivethitha.util.Logger;
@@ -24,13 +24,13 @@ public class ApplyCouponService {
 	 * @param id
 	 * @param String
 	 * @return
-	 * @throws InvalidException
+	 * @throws ServiceException
 	 * @throws ExpiryDateException
 	 * @throws DBException
 	 * @throws
 	 */
 	public static double isValidCoupon(int id, String couponCode)
-			throws InvalidException, DBException, ExpiryDateException {
+			throws ServiceException, DBException, ExpiryDateException {
 
 		Double priceAmount = 0d;
 		String toIgnoreCase = couponCode.toUpperCase();
@@ -47,7 +47,10 @@ public class ApplyCouponService {
 
 		} catch (ExpiryDateException | DBException e) {
 			Logger.trace(e);
-			System.exit(1);
+			//System.exit(1);
+
+			throw new ServiceException("unable to process");
+			//throw new ServiceException
 			
 		}
 
@@ -67,11 +70,11 @@ public class ApplyCouponService {
 	 * @param id
 	 * @return
 	 * @throws DBException
-	 * @throws InvalidException
+	 * @throws ServiceException
 	 */
 	public static int usageCount(int id) throws DBException {
 		int count = ApplyCouponDAO.getNumberOfTimesUsed(id);
-		return count++;
+		return count;
 
 	}
 
@@ -79,16 +82,29 @@ public class ApplyCouponService {
 	 * This method is used to get the count of particular user id
 	 * @param id
 	 * @param couponCode
-	 * @throws InvalidException
+	 * @throws ServiceException
 	 * @throws DBException
 	 */
-	public static void getCountOfparticularId(int id, String couponCode) throws InvalidException, DBException {
+	public static void getCountOfparticularId(int id, String couponCode) throws ServiceException, DBException {
 		int particularIdCount = ApplyCouponDAO.getCountValue(id, couponCode);
-		if (particularIdCount >= 2) {
-			throw new InvalidException(
-					"Sorry to say this we don’t offer discount for this because the same coupon code is already two times used by the user");
+		System.out.println(particularIdCount);
+
+		if (particularIdCount >=2) {
+			throw new ServiceException("Sorry to say this we don’t offer discount for this because the same id is already two times used by the user");
 		}
+		
+		
 
 	}
+	public static void main(String[] args) throws ExpiryDateException {
+		try {
+			isValidCoupon(4,"AMZOG32"	);
+		} catch (ServiceException | DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-}
+	}
+	
+

@@ -1,7 +1,9 @@
 package in.nivethitha.service;
 
 import java.sql.SQLException;
+//import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import in.nivethitha.dao.CouponListDAO;
 import in.nivethitha.exception.DBException;
@@ -22,11 +24,12 @@ public class CouponService {
 	 * @param endingDate
 	 * @param couponStatus
 	 */
-	public static void addCoupon(String siteName, String code, int discountPercent, double amount,
+	public static void addCoupon(String siteName, String code,LocalDateTime createdDate, int discountPercent, double amount,
 			LocalDate startingDate, LocalDate endingDate, String couponStatus) {
 		CouponDetail cd = new CouponDetail();
 		cd.setShoppingSiteName(siteName);
 		cd.setCouponCode(code);
+		cd.setCreatedDate(createdDate);;
 		cd.setDiscount(discountPercent);
 		cd.setPurchaseAmount(amount);
 		cd.setStartDate(startingDate);
@@ -39,5 +42,14 @@ public class CouponService {
 		}
 
 	}
-
+	public static void main(String[] args) {
+		String openingDate = "2021-09-01";
+		LocalDate sdate = LocalDate.parse(openingDate);
+		String closingDate = "2021-09-05";
+		LocalDate edate = LocalDate.parse(closingDate);
+		LocalDateTime createdDate=LocalDateTime.now();
+		
+     CouponService.addCoupon("clubfactory", "CLUB078",createdDate, 10, 7000, sdate, edate, "OPEN");
+	}
+	
 }

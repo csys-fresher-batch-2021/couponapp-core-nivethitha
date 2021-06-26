@@ -11,7 +11,7 @@ import java.util.List;
 
 import in.nivethitha.exception.ConnectionException;
 import in.nivethitha.exception.DBException;
-import in.nivethitha.exception.InvalidException;
+import in.nivethitha.exception.ServiceException;
 import in.nivethitha.model.ApplyCoupon;
 import in.nivethitha.service.ApplyCouponService;
 import in.nivethitha.util.ConnectionUtil;
@@ -33,7 +33,7 @@ public class ApplyCouponDAO {
 		ResultSet rs = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select (purchasing_amount-(purchasing_amount*discount)/100) as bill_amount,coupon_code,id from coupondetails";
+			String sql = "select (purchasing_amount-(purchasing_amount*discount)/100) as bill_amount,coupon_code,id from coupon_details";
 			pst = con.prepareStatement(sql);
 			rs = pst.executeQuery();
 
@@ -75,7 +75,7 @@ public class ApplyCouponDAO {
 		try {
 
 			con = ConnectionUtil.getConnection();
-			String sql = "select expiry_date from coupondetails where coupon_code=?";
+			String sql = "select expiry_date from coupon_details where coupon_code=?";
 			pst = con.prepareStatement(sql);
 			pst.setString(1,couponCode);
 			rs = pst.executeQuery();
@@ -98,7 +98,7 @@ public class ApplyCouponDAO {
 	 * @param id
 	 * @return
 	 * @throws DBException
-	 * @throws InvalidException
+	 * @throws ServiceException
 	 */
 
 	public static int getNumberOfTimesUsed(int id) throws DBException {
@@ -108,7 +108,7 @@ public class ApplyCouponDAO {
 		int numberOfTimesCouponUsed = 0;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select no_of_times_used from coupondetails where id=?";
+			String sql = "select no_of_times_used from coupon_details where id=?";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1,id);
 			rs = pst.executeQuery();
@@ -124,7 +124,6 @@ public class ApplyCouponDAO {
 			ConnectionUtil.close(rs, pst, con);
 
 		}
-
 		return numberOfTimesCouponUsed;
 	}
 
@@ -132,7 +131,7 @@ public class ApplyCouponDAO {
 	 * This method is used to set the row count
 	 * @param id
 	 * @return
-	 * @throws InvalidException
+	 * @throws ServiceException
 	 * @throws DBException
 	 */
 
@@ -144,7 +143,7 @@ public class ApplyCouponDAO {
 
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "update coupondetails set no_of_times_used=? where id=?";
+			String sql = "update coupon_details set no_of_times_used=?+1 where id=?";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, numberOfTimesUsed);
 			pst.setInt(2, id);
@@ -164,7 +163,7 @@ public class ApplyCouponDAO {
 	 * @param id
 	 * @param couponCode
 	 * @return
-	 * @throws InvalidException
+	 * @throws ServiceException
 	 * @throws DBException
 	 */
 	public static int getCountValue(int id, String couponCode) throws DBException {
@@ -175,7 +174,7 @@ public class ApplyCouponDAO {
 		int rowCount = 0;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select no_of_times_used as count from coupondetails where id=? and coupon_code=?";
+			String sql = "select no_of_times_used as count from coupon_details where id=? and coupon_code=?";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, id);
 			pst.setString(2, couponCode);
@@ -194,6 +193,9 @@ public class ApplyCouponDAO {
 		}
 		return rowCount;
 
+	}
+	public static void main(String[] args) throws DBException {
+		getCountValue(1,"MEEZ671");
 	}
 	
 }

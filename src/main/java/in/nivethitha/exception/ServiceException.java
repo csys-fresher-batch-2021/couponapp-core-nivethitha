@@ -1,13 +1,13 @@
 package in.nivethitha.exception;
 
-public class InvalidException extends Exception {
+public class ServiceException extends Exception {
 
 	/**
 	 * This method is used to display the exception message
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public InvalidException(String message) {
+	public ServiceException(String message) {
 		super(message);
 	}
 }

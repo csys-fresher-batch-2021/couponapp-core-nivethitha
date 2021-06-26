@@ -2,7 +2,7 @@ package in.nivethitha.validator;
 
 
 import in.nivethitha.exception.EmptyStringException;
-import in.nivethitha.exception.InvalidException;
+import in.nivethitha.exception.ServiceException;
 import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.Logger;
 import in.nivethitha.util.NumberValidator;
@@ -19,7 +19,7 @@ public class AddCouponValidator {
 	 * and expiry date should not be the expired date
 	 * @param co
 	 * @return
-	 * @throws InvalidException 
+	 * @throws ServiceException 
 	 * @throws EmptyStringException
 	 * @throws InvalidCouponCodeLength
 	 * @throws InvalidDateException 
@@ -36,7 +36,7 @@ public class AddCouponValidator {
 					&& StringValidator.isValidString(co.getStatus())) {
 				isValid = true;
 			}
-		} catch (EmptyStringException | InvalidException e) {
+		} catch (EmptyStringException | ServiceException e) {
 		        Logger.trace(e);
 		}
 		return isValid;

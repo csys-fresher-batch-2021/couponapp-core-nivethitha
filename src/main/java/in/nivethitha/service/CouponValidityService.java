@@ -2,6 +2,7 @@ package in.nivethitha.service;
 
 import java.time.LocalDate;
 import java.util.Map;
+
 import in.nivethitha.dao.CouponValidityDAO;
 import in.nivethitha.exception.ExpiryDateException;
 import in.nivethitha.exception.InvalidCouponCodeException;
@@ -30,10 +31,13 @@ public class CouponValidityService {
 				isMatched = true;
 			}
 		} else {
-			throw new InvalidCouponCodeException("Sorry!coupon code does not match");
+			throw new InvalidCouponCodeException("Sorry!inavlid coupon");
 		}
 		return isMatched;
 
+	}
+	public static void main(String[] args) throws ExpiryDateException, InvalidCouponCodeException {
+		isCouponExpired("MYNT1120");
 	}
 
 }

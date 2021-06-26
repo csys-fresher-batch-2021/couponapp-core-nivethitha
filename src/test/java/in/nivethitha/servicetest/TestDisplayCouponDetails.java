@@ -10,7 +10,7 @@ public class TestDisplayCouponDetails {
 	 */
 	@Test
 	public void testDisplayCoupon() {
-		DisplayCouponDetails.showDetails();
+		DisplayCouponDetails.getAll();
 	}
 
 }

@@ -1,9 +1,9 @@
 package in.nivethitha.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class CouponValidityDAO {
 		ResultSet rs = null;
 		try {
 			connection = ConnectionUtil.getConnection();
-			String sql = "select coupon_code,expiry_date from coupondetails";
+			String sql = "select coupon_code,expiry_date from coupon_details";
 			pst = connection.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
