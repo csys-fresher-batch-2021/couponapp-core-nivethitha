@@ -1,0 +1,1 @@
+select coupon_code,expiry_date from coupon_details;

@@ -1,0 +1,1 @@
+insert into coupon_details(shopping_site,coupon_code,created_date,discount,purchasing_amount,start_date,expiry_date,status)values(?,?,?,?,?,?,?);
