@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import in.nivethitha.exception.EmptyStringException;
 import in.nivethitha.exception.ServiceException;
+import in.nivethitha.exception.ValidatorException;
 import in.nivethitha.util.Logger;
 import in.nivethitha.util.NumberValidator;
 import in.nivethitha.util.StringValidator;
@@ -17,21 +17,15 @@ public class TestAddCouponvalidator {
 	public void testSiteNameWithEmptystring() {
 		try {
 			StringValidator.isValidString("");
-		} catch (EmptyStringException e) {
+		} catch (ValidatorException e) {
 			assertEquals("site name should not be empty or null", e.getMessage());
 			Logger.trace(e);
 		}
 	}
 
 	@Test
-	public void testCouponCodeLengthWithLesserThanFive() {
-		try {
-			StringValidator.isvalidCoupon("");
-		} catch (ServiceException e) {
-			assertEquals("Coupon code should not be lesser than five", e.getMessage());
-
-			Logger.trace(e);
-		}
+	public void testCouponCodeLengthWithLesserThanFive() throws ServiceException, ValidatorException {
+		StringValidator.isvalidCoupon("");
 	}
 
 	@Test
@@ -86,7 +80,7 @@ public class TestAddCouponvalidator {
 	public void testWithEmptystatus() {
 		try {
 			StringValidator.isValidString(null);
-		} catch (EmptyStringException e) {
+		} catch (ValidatorException e) {
 			assertEquals("field should not be empty or null", e.getMessage());
 
 			Logger.trace(e);

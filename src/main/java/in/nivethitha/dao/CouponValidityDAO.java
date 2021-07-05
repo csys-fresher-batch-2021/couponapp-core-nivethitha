@@ -27,7 +27,7 @@ public class CouponValidityDAO {
 		ResultSet rs = null;
 		try {
 			connection = ConnectionUtil.getConnection();
-			String sql = "select coupon_code,expiry_date from coupon_details";
+			String sql = "select coupon_code,expiry_date from coupon_detail";
 			pst = connection.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
@@ -35,7 +35,7 @@ public class CouponValidityDAO {
 				Date closeDate = rs.getDate("expiry_date");
 				LocalDate expiryDate = closeDate.toLocalDate();
 				// Store the data in model
-				CouponDetail coupon = new CouponDetail();
+				CouponDetail coupon=new CouponDetail();
 				coupon.setCouponCode(couponCode);
 				coupon.setExpiryDate(expiryDate);
 				// Store coupon validity details in list

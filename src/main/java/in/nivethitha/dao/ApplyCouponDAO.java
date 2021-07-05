@@ -1,201 +1,166 @@
 package in.nivethitha.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import in.nivethitha.exception.ConnectionException;
 import in.nivethitha.exception.DBException;
 import in.nivethitha.exception.ServiceException;
 import in.nivethitha.model.ApplyCoupon;
-import in.nivethitha.service.ApplyCouponService;
 import in.nivethitha.util.ConnectionUtil;
 import in.nivethitha.util.Logger;
 
 public class ApplyCouponDAO {
+
 	private ApplyCouponDAO() {
 		// Default constructor
 	}
-
 	/**
-	 * This method is used to get the couponCode and final bill amount from database
-	 * @return
+	 * It returns userName,mobile number,coupon applied date
+	 * @param co
+	 * @throws DBException 
 	 */
-	public static List<ApplyCoupon> getCoupon() {
-		List<ApplyCoupon> applyCoupon = new ArrayList<>();
+	public static void save(ApplyCoupon coupon) throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select (purchasing_amount-(purchasing_amount*discount)/100) as bill_amount,coupon_code,id from coupon_details";
+			String sql = "insert into user_coupons(coupon_id,email_id,mobile_number,coupon_code,purchasing_amount,discounted_amount,applied_date,status)values(?,?,?,?,?,?,?,?)";
 			pst = con.prepareStatement(sql);
-			rs = pst.executeQuery();
-
-			while (rs.next()) {
-				String couponCode = rs.getString("coupon_code");
-				double billAmount = rs.getDouble("bill_amount");
-				int id = rs.getInt("id");
-				ApplyCoupon cop = new ApplyCoupon();
-				cop.setCouponCode(couponCode);
-				cop.setId(id);
-				cop.setFinalBillAmount(billAmount);
-				applyCoupon.add(cop);
-
-			}
-
+			pst.setInt(1, coupon.getId());
+			pst.setString(2, coupon.geteMailId());
+			pst.setLong(3,coupon.getMobileNumber());
+			pst.setString(4,coupon.getCouponCode());
+			pst.setDouble(5, coupon.getPurchasingAmount());
+			pst.setDouble(6, coupon.getDiscounted_amount());
+			LocalDateTime date=coupon.getAppliedDate();
+			Timestamp appliedDate=Timestamp.valueOf(date);
+			pst.setTimestamp(7,appliedDate);
+			pst.setString(8, coupon.getStatus());
+			pst.execute();
+			Logger.log("user details added successfully");
 		} catch (ConnectionException | SQLException e) {
-			Logger.trace(e);
+			e.printStackTrace();
+			throw new DBException("Unable to add user details");
 		} finally {
 			ConnectionUtil.close(rs, pst, con);
 		}
-		return applyCoupon;
-
 	}
-
+	
 	/**
-	 * This method is used to get the expiry date
-	 * @param couponCode
-	 * @param  
-	 * @return
+	 * This method is used to get mobile number of particular user
+	 * @param mobile 
+	 * @param id
 	 * @throws DBException
 	 */
-	public static LocalDate getExpiryDate(String couponCode) throws DBException {
+	public static long getMobileNumberByEmailId(String email) throws DBException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Long mobileNumber=0L;
+		//String couponCode="";
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "select mobile_number from users where email=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1,email);
+			rs=pst.executeQuery();
+			if(rs.next()) {
+				mobileNumber=rs.getLong("mobile_number");
+			}
+			Logger.log("mobile number matched");
+		} catch (SQLException e) {
+			throw new DBException("Unable to add mobile number");
+		} finally {
+			ConnectionUtil.close(rs, pst, con);
+		}
+		System.out.println("mobile:"+mobileNumber);
+		return mobileNumber;
 
+	}
+	public static String getCouponCode(int id) throws DBException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		String coupon="";
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "select coupon_code from coupon_detail where id=?";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs=pst.executeQuery();
+			if(rs.next()) {
+				 coupon=rs.getString("coupon_code");
+			}
+		} catch (SQLException e) {
+			throw new DBException("Unable to get coupon code");
+		} finally {
+			ConnectionUtil.close(rs, pst, con);
+		}
+		System.out.println("couponcode:"+coupon);
+		return coupon;
+
+	}
+	public static int getDiscount(int id) throws DBException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int discount =0;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "select discount from coupon_detail where id=?";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs=pst.executeQuery();
+			if(rs.next()) {
+				discount=rs.getInt("discount");
+			}
+			Logger.log("discount matched");
+		} catch (SQLException e) {
+			throw new DBException("Unable to get discount");
+		} finally {
+			ConnectionUtil.close(rs, pst, con);
+		}
+		System.out.println("discount"+discount);
+		return discount;
+
+	}
+	
+	public static int getNumberOfTimesUsed(String email) throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
-		LocalDate expiryDate = null;
+		Long mobileNumber=ApplyCouponDAO.getMobileNumberByEmailId(email);
+		int count =0;
 		try {
-
 			con = ConnectionUtil.getConnection();
-			String sql = "select expiry_date from coupon_details where coupon_code=?";
+			String sql = "select count(mobile_number=?)as usageCount from user_coupons";
 			pst = con.prepareStatement(sql);
-			pst.setString(1,couponCode);
-			rs = pst.executeQuery();
-			if (rs.next()) {
-				Date date = rs.getDate("expiry_date");
-				expiryDate = date.toLocalDate();
+			pst.setLong(1, mobileNumber);
+			rs=pst.executeQuery();
+			if(rs.next()) {
+			count=rs.getInt("usageCount");
 			}
-
+			
+			//Logger.log("discount matched");
 		} catch (SQLException e) {
-			throw new DBException("Unable to get expiry date");
+			throw new DBException("Unable to get nof");
 		} finally {
 			ConnectionUtil.close(rs, pst, con);
 		}
-		return expiryDate;
+		System.out.println("count"+count);
+		return count;
 
 	}
-
-	/**
-	 * This method is used to get number of times a coupon used
-	 * @param id
-	 * @return
-	 * @throws DBException
-	 * @throws ServiceException
-	 */
-
-	public static int getNumberOfTimesUsed(int id) throws DBException {
-		Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		int numberOfTimesCouponUsed = 0;
-		try {
-			con = ConnectionUtil.getConnection();
-			String sql = "select no_of_times_used from coupon_details where id=?";
-			pst = con.prepareStatement(sql);
-			pst.setInt(1,id);
-			rs = pst.executeQuery();
-			if (rs.next()) {
-				numberOfTimesCouponUsed = rs.getInt("no_of_times_used");
-
-			}
-		} catch (ConnectionException | SQLException e) {
-			Logger.trace(e);
-			throw new DBException("Unable to get how many times used");
-
-		} finally {
-			ConnectionUtil.close(rs, pst, con);
-
-		}
-		return numberOfTimesCouponUsed;
-	}
-
-	/**
-	 * This method is used to set the row count
-	 * @param id
-	 * @return
-	 * @throws ServiceException
-	 * @throws DBException
-	 */
-
-	public static int toUpdateCountValue(int id) throws DBException {
-		Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		int numberOfTimesUsed = ApplyCouponService.usageCount(id);
-
-		try {
-			con = ConnectionUtil.getConnection();
-			String sql = "update coupon_details set no_of_times_used=?+1 where id=?";
-			pst = con.prepareStatement(sql);
-			pst.setInt(1, numberOfTimesUsed);
-			pst.setInt(2, id);
-			pst.execute();
-
-		} catch (ConnectionException | SQLException e) {
-			Logger.trace(e);
-		} finally {
-			ConnectionUtil.close(rs, pst, con);
-		}
-		return numberOfTimesUsed;
-
-	}
-
-	/**
-	 * This method is used to get the updated row count
-	 * @param id
-	 * @param couponCode
-	 * @return
-	 * @throws ServiceException
-	 * @throws DBException
-	 */
-	public static int getCountValue(int id, String couponCode) throws DBException {
-
-		Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		int rowCount = 0;
-		try {
-			con = ConnectionUtil.getConnection();
-			String sql = "select no_of_times_used as count from coupon_details where id=? and coupon_code=?";
-			pst = con.prepareStatement(sql);
-			pst.setInt(1, id);
-			pst.setString(2, couponCode);
-			rs = pst.executeQuery();
-			if (rs.next()) {
-				rowCount = rs.getInt("count");
-
-			}
-
-		} catch (ConnectionException | SQLException e) {
-			Logger.trace(e);
-			throw new DBException("Unable to get number of times used");
-
-		} finally {
-			ConnectionUtil.close(rs, pst, con);
-		}
-		return rowCount;
-
-	}
-	public static void main(String[] args) throws DBException {
-		getCountValue(1,"MEEZ671");
+	public static void main(String[] args) throws DBException, ServiceException {
+		//getCouponCode(101);
+		getNumberOfTimesUsed("nithya94.@gmail.com");
 	}
 	
 }

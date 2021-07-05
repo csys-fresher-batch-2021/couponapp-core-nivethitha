@@ -1,7 +1,6 @@
 package in.nivethitha.util;
 
-import in.nivethitha.exception.EmptyStringException;
-import in.nivethitha.exception.ServiceException;
+import in.nivethitha.exception.ValidatorException;
 
 public class StringValidator {
 	private StringValidator() {
@@ -13,11 +12,11 @@ public class StringValidator {
 	 * @return
 	 * @throws EmptyStringException
 	 */
-	public static boolean isValidString(String name) throws EmptyStringException {
+	public static boolean isValidString(String name) throws ValidatorException {
 
 		if (name == null || name.trim().equals("")) {
 			
-			throw new EmptyStringException("field should not be empty or null");
+			throw new ValidatorException("field should not be empty or null");
 		} else {
 
 			return true;
@@ -29,9 +28,11 @@ public class StringValidator {
 	 * @return
 	 * @throws InvalidCouponCodeLength
 	 */
-	public static boolean isvalidCoupon(String couponCode) throws ServiceException {
-		if(couponCode.length()<5) {
-			throw new ServiceException("Coupon code should not be lesser than five");
+	public static boolean isvalidCoupon(String couponCode) throws ValidatorException {
+		
+		if(couponCode.startsWith("2C")) {
+			
+			throw new ValidatorException("Invalid coupon");
 		}
 		return false;
 		

@@ -1,8 +1,8 @@
 package in.nivethitha.validator;
 
 
-import in.nivethitha.exception.EmptyStringException;
 import in.nivethitha.exception.ServiceException;
+import in.nivethitha.exception.ValidatorException;
 import in.nivethitha.model.CouponDetail;
 import in.nivethitha.util.Logger;
 import in.nivethitha.util.NumberValidator;
@@ -36,7 +36,7 @@ public class AddCouponValidator {
 					&& StringValidator.isValidString(co.getStatus())) {
 				isValid = true;
 			}
-		} catch (EmptyStringException | ServiceException e) {
+		} catch (ValidatorException | ServiceException e) {
 		        Logger.trace(e);
 		}
 		return isValid;

@@ -7,26 +7,25 @@ import java.time.LocalDateTime;
 
 import org.junit.Test;
 
-import in.nivethitha.service.CouponService;
+import in.nivethitha.service.AddCouponService;
 import in.nivethitha.util.Logger;
 
-public class TestCouponService {
+public class TestAddCouponService {
 	@Test
 	/**
 	 * This method is used to test whether the data is inserted into database or not
 	 * If the data is inserted, it will display the success message in console
 	 */
 	public void testAddCouponDetails() {
-		String openingDate = "2021-09-01";
+		String openingDate = "2021-07-11";
 		LocalDate sdate = LocalDate.parse(openingDate);
-		String closingDate = "2021-09-05";
+		String closingDate = "2021-07-20";
 		LocalDate edate = LocalDate.parse(closingDate);
-		String cDate="2021-06-02 04:00:00";
-		LocalDateTime createdDate=LocalDateTime.parse(cDate);
+		LocalDateTime createdDate=LocalDateTime.now();
 		
 		try {
 			
-			CouponService.addCoupon("clubfactory", "CLUB078",createdDate, 10, 7000, sdate, edate, "OPEN");
+			AddCouponService.addCoupon(107,"DOMI564",createdDate, 35,sdate, edate);
 		} catch (Exception e) {
 			assertEquals("coupon details added successfully", e.getMessage());
 
