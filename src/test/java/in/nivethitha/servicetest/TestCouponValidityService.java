@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import in.nivethitha.exception.ExpiryDateException;
 import in.nivethitha.exception.InvalidCouponCodeException;
+import in.nivethitha.exception.ServiceException;
 import in.nivethitha.service.CouponValidityService;
 import in.nivethitha.util.Logger;
 
@@ -30,7 +31,7 @@ public class TestCouponValidityService {
 	}
 
 	@Test
-	public void testWithLowerCase() throws InvalidCouponCodeException {
+	public void testWithLowerCase() throws InvalidCouponCodeException, ServiceException {
 		String couponCode = "fliP1020";
 		try {
 			boolean isMatched = CouponValidityService.isCouponExpired(couponCode);
@@ -46,12 +47,12 @@ public class TestCouponValidityService {
 	}
 
 	@Test
-	public void testWithInvalidCode() throws InvalidCouponCodeException {
+	public void testWithInvalidCode() throws InvalidCouponCodeException, ServiceException {
 		String couponCode = "AMZYL020";
 		try {
 			boolean isMatched = CouponValidityService.isCouponExpired(couponCode);
 			assertFalse(isMatched);
-		} catch (InvalidCouponCodeException | ExpiryDateException e) {
+		} catch (ExpiryDateException e) {
 			assertEquals("Sorry!coupon code does not match", e.getMessage());
 
 			Logger.trace(e);

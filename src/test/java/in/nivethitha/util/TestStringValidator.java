@@ -4,8 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import in.nivethitha.exception.EmptyStringException;
-import in.nivethitha.exception.InvalidException;
+import in.nivethitha.exception.ValidatorException;
 
 public class TestStringValidator {
 	@Test
@@ -13,7 +12,7 @@ public class TestStringValidator {
 		String name = "";
 		try {
 			StringValidator.isValidString(name);
-		} catch (EmptyStringException e) {
+		} catch (ValidatorException e) {
 			assertEquals("site name should not be empty or null", e.getMessage());
 			Logger.trace(e);
 		}
@@ -24,7 +23,7 @@ public class TestStringValidator {
 		String name = null;
 		try {
 			StringValidator.isValidString(name);
-		} catch (EmptyStringException e) {
+		} catch (ValidatorException e) {
 			assertEquals("field should not be empty or null", e.getMessage());
 			Logger.trace(e);
 		}
@@ -36,7 +35,7 @@ public class TestStringValidator {
 		String couponCode = "FL1";
 		try {
 			StringValidator.isvalidCoupon(couponCode);
-		} catch (InvalidException e) {
+		} catch (ValidatorException e) {
 			assertEquals("Coupon code should not be lesser than five", e.getMessage());
 
 			Logger.trace(e);

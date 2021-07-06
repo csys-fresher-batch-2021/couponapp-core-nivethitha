@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import in.nivethitha.exception.DBException;
 import in.nivethitha.exception.ExpiryDateException;
-import in.nivethitha.exception.InvalidException;
+import in.nivethitha.exception.ServiceException;
 import in.nivethitha.service.ApplyCouponService;
 
 public class TestApplyCouponService {
@@ -22,7 +22,7 @@ public class TestApplyCouponService {
 			//System.out.println("Your bill amount is: " + result);
 			assertEquals(3910.0, result, 0.1);
 
-		} catch (InvalidException | DBException e) {
+		} catch (ServiceException | DBException e) {
 			e.printStackTrace();
 		}
 	}
@@ -36,7 +36,7 @@ public class TestApplyCouponService {
 		String couponCode = "AMZOG32";
 		try {
 			ApplyCouponService.isValidCoupon(id, couponCode);
-		} catch ( DBException | ExpiryDateException | InvalidException e) {
+		} catch ( DBException | ExpiryDateException | ServiceException e) {
 			e.printStackTrace();
 		}
 	}
@@ -51,7 +51,7 @@ public class TestApplyCouponService {
 		String couponCode = "CLUB078";
 		try {
 			ApplyCouponService.isValidCoupon(id, couponCode);
-		} catch (InvalidException | DBException | ExpiryDateException e) {
+		} catch (ServiceException | DBException | ExpiryDateException e) {
 			e.printStackTrace();
 		}
 	}
