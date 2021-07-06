@@ -40,13 +40,13 @@ public class AddCouponService {
 
 	}
 	public static void main(String[] args) {
-		String openingDate = "2021-07-11";
+		String openingDate = "2021-07-05";
 		LocalDate sdate = LocalDate.parse(openingDate);
-		String closingDate = "2021-07-20";
+		String closingDate = "2021-07-10";
 		LocalDate edate = LocalDate.parse(closingDate);
 		LocalDateTime createdDate=LocalDateTime.now();
 		
-     AddCouponService.addCoupon(107,"DOMI564",createdDate, 35,sdate, edate);
+     AddCouponService.addCoupon(109,"JIO056",createdDate, 50,sdate, edate);
 	}
 	
 }

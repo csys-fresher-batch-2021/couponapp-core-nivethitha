@@ -39,7 +39,7 @@ public class CouponValidityService {
 
 	}
 	public static void main(String[] args) throws ExpiryDateException, InvalidCouponCodeException, ServiceException {
-		isCouponExpired("JIO0980");
+		isCouponExpired("MYNT1120");
 	}
 
 }
